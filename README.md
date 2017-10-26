@@ -23,6 +23,8 @@ Développer une application permettant d'afficher les webcams et la météo de l
 - l'ergonomie de l'interface utilisateur
 - la qualité du design
 
+et bien sûr... une présentation qui déchire !
+
 ## Les prix !
 
 - **Premier Prix** pour l'équipe qui produit une application de qualité respectant tous les critères mentionnés plus haut
