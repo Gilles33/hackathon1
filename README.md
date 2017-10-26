@@ -18,6 +18,7 @@ Développer une application permettant d'afficher les webcams et la météo de l
 
 ## Les critères
 
+- quelque chose de fonctionnel !
 - l'originalité du design ou de l'interprétation du sujet
 - l'ergonomie de l'interface utilisateur
 - la qualité du design
