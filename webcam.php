@@ -21,22 +21,18 @@ $content = json_decode($json);
 
 $webcams = $content->result->webcams;
 
-var_dump($debug);
+$contentWebcam ='';
 
 
 foreach ($webcams as $webcam){
-    var_dump($webcam);
     if ($webcam->status == 'active'){
-        echo '<div>
-            <h1>' . $webcam->title.'</h1>
+        $contentWebcam .= '
+            <h1>' . $webcam->title .'</h1>
             <a name="lkr-timelapse-player"
            data-id="' . $webcam->id . '"
            data-play="day"
            href="https://lookr.com/' . $webcam->id . '"
-           target="_blank">
-            Nom de la ville</a>
-        </div>';
+           target="_blank">Nom de la ville</a>
+        ';
     }
 }
-
-
