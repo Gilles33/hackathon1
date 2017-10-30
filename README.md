@@ -61,8 +61,8 @@ Il faudra aussi inclure le script suivant dans votre page:
 ```
 Les exemples d'accès à cet API sont donnés dans plusieurs environnements, notemment sous PHP et Node.js:
 
-- **PHP**: inclure le module **Unirest** (TODO)
-- **Node**: installer le module **unirest** par npm
+- **PHP**: inclure le module **Unirest** avec composer,
+- **Node**: installer le module **unirest** par npm.
 
 Regardez bien sur le site de l'API webcams.travel (Mashape) la façon d'appeler leur serveur avec chacune de ces technos...
 
