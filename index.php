@@ -1,5 +1,6 @@
 <?php
 require_once 'weather.php';
+require 'webcam.php';
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +35,10 @@ require_once 'weather.php';
     <?php
 }
 
-require 'webcam.php';
+if(isset($contentWebcam)) {
+    echo $contentWebcam;
+}
+
 
 ?>
 
