@@ -1,5 +1,5 @@
 <?php
-require_once 'weather.php'
+require_once 'weather.php';
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +33,11 @@ require_once 'weather.php'
     </section>
     <?php
 }
+
+require 'webcam.php';
+
 ?>
 
+<script async type="text/javascript" src="https://api.lookr.com/embed/script/player.js"></script>
 </body>
 </html>
