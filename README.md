@@ -28,7 +28,7 @@ et bien sûr... une présentation qui déchire !
 ## Les prix !
 
 - **Premier Prix** pour l'équipe qui produit une application de qualité respectant tous les critères mentionnés plus haut
-- **Coup de Coeur** pour l'équipe qui saura émouvoir le jury, même si de petites imperfections ne lui permet pas d'atteindre la plus haute marche du podium
+- **Coup de Coeur** pour l'équipe qui saura émouvoir le jury, même si de petites imperfections ne lui permettent pas d'atteindre la plus haute marche du podium
 
 ## Ressources
 
