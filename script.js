@@ -43,4 +43,18 @@ $(document).ready(function() {
         $('#weatherIcon').html('<i class="wi wi-meteor"></i>');
     }
 
+    if($('#slideHome').hasClass('active')) {
+        $('nav').css('display', 'none');
+    }
+
+    $('#carouselExampleIndicators').on('slid.bs.carousel', function () {
+        if($('#slideHome').hasClass('active')) {
+            $('nav').css('display', 'none');
+        } else {
+
+                $('nav').css('display', 'flex');
+            }
+        
+    });
+
 });

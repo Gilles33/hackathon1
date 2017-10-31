@@ -1,4 +1,5 @@
 <?php
+
 //units=For temperature in Celsius use units=metric
 //5128638 is new york ID
 if (!empty($_POST['searchCity'])) {
@@ -14,7 +15,7 @@ if (!empty($_POST['searchCity'])) {
 
     for($i=4; $i <=36 ; $i += 8) {
         $date = strtotime($climateForecast->list[$i]->dt_txt);
-        $newFormat = date('d-m-Y', $date);
+        $newFormat = date('D/m/Y', $date);
         $forecastTableHead[] =  $newFormat;
         $forecastTableDataWeather[] = $climateForecast->list[$i]->weather[0]->main;
         $forecastTableDataTemp[] = $climateForecast->list[$i]->main->temp;

@@ -63,7 +63,7 @@ function searchByRegion($region){
     foreach ($webcamsRegion as $webcam){
         if ($webcam->status == 'active'){
 
-            $contentWebcamRegion .= '<div class="card" style="width: 20rem;">
+            $contentWebcamRegion .= '<div class="col-sm6"><div class="card" style="width: 20rem;">
             <iframe width="100%" name="lkr-timelapse-player-iframe" frameborder="0" allowfullscreen="true"
            src="https://api.lookr.com/embed/player/' . $webcam->id . '/day?autoresize=0&amp;referrer=http%3A%2F%2Flocalhost%2Fhackathon%2Fbordeaux-0917-hackathon1%2Findex.php"
            style="border: none;"></iframe>
@@ -71,10 +71,12 @@ function searchByRegion($region){
                 <h4 class="card-title">' . $webcam->title . '</h4>
                 <form action="index.php" method="post" name="searchCity">
                     <button class="btn btn-primary" type="submit" name="searchCity" value="' . $webcam->location->city . '">Voir la Ville</button></form>
+                    </div>
                 </div>
             </div>';
         }
     }
+
     $contentWebcamRegion .= '</div>';
     return $contentWebcamRegion;
 }

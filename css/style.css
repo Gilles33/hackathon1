@@ -2,8 +2,9 @@
     display: none;
 }
 
-body {
 
+body {
+    background-image: url('../img/beach-1852945_1920.jpg');
     background-size: cover;
     background-attachment: fixed;
     text-align: center;
@@ -70,6 +71,7 @@ h1 {
     height: 95%;
     width:100%;
 }
+
 html,body{
     height:100%;
     overflow-y: hidden;
@@ -93,4 +95,14 @@ html,body{
     font-size: 60px;
     margin-top: 30px;
     text-shadow: 2px 1px black;
+
+
+.carousel-item > .container > #homeForm {
+    margin-top : 33%;
+    margin-left: 15%;
+}
+
+.carousel-item > .container > #homeForm > form > button {
+    margin : 15px;
+
 }

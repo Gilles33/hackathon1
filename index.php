@@ -7,7 +7,7 @@ require_once 'forecast.php';
 ?>
 
 <!DOCTYPE html>
-<html lang="EN">
+<html lang="FR">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,7 +32,7 @@ require_once 'forecast.php';
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 
         <form class="form-inline my-2 my-lg-0" action="index.php" method="post" name="searchCity">
-            <input class="form-control mr-sm-2" type="search" placeholder="City..." aria-label="Search"
+            <input class="form-control mr-sm-2" type="search" placeholder="Ville..." aria-label="Search"
                    name="searchCity">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
@@ -41,22 +41,33 @@ require_once 'forecast.php';
 
 
 
+
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval=false>
+
     <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        <li  data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li  data-target="#carouselExampleIndicators" data-slide-to="2"></li>
     </ol>
     <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img class="d-block w-100" src="..." alt="First slide">
+        <div id="slideHome" class="carousel-item active">
+            <div class="container">
+                <div id="homeForm" class="row align-items-center">
+            <form class="col form-inline  my-2 my-lg-0" action="index.php" method="post" name="searchCity">
+                <input class="form-control-lg col-sm-8" type="search" placeholder="Où passer son week end de télétravail ?" aria-label="Search"
+                       name="searchCity">
+                <button class="btn-lg btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+            </form>
+                </div>
+            </div>
         </div>
-        <div class="carousel-item">
+        <div  id="slideCity" class="carousel-item">
             <?php
             if (!empty($_POST['searchCity']) && isset($_POST['searchCity']) && $_POST['searchCity'] != 'NULL') {
 
                 ?>
                 <section id="currentWeather">
+
                 <div class="row">
                     <div class="offset-sm-2 col-sm-4">
                         <h1 class="text-center"><?= $cityName ?><span id="weatherId"><?= $weatherId ?></span></h1>
@@ -71,19 +82,18 @@ require_once 'forecast.php';
                     </div>
                     <div id="temperature" class="offset-sm-1 col-sm-4">
                         <p class="text-left"><?= $tempMax ?>°</p>
+
                     </div>
-                </div>
-                <div class="row">
-                    <div id="humidity" class="offset-sm-3 col-sm-3">
-                        <p class="text-center"><i class="wi wi-raindrop"></i> <?= $humidity ?></p>
+                    <div class="row">
+                        <div id="humidity" class="offset-sm-3 col-sm-3">
+                            <p class="text-center"><i class="wi wi-raindrop"></i> <?= $humidity ?></p>
+                        </div>
+                        <div id="wind" class="col-sm-3">
+                            <p class="text-center"><i class="wi wi-strong-wind"></i><?= $wind ?> meter/sec</p>
+                        </div>
                     </div>
-                    <div id="wind" class="col-sm-3">
-                        <p class="text-center"><i class="wi wi-strong-wind"></i><?= $wind ?> meter/sec</p>
-                    </div>
-                </div>
                 </section>
                 <?php
-
 
 
             }
@@ -92,26 +102,36 @@ require_once 'forecast.php';
             $humidityTab = [];
             $windTab = [];
             if (isset($forecastTableHead)) {
+
                 //echo '<table><tr>';
+
                 foreach ($forecastTableHead as $tableHead) {
                     //echo '<th>' . $tableHead . '</th>';
                     $headTab [] = $tableHead;
                 }
+
                 //echo '</tr><tr>';
+
                 foreach ($forecastTableDataWeather as $tabledata) {
                     //echo '<td>' . $tabledata . '</td>';
                 }
+
                 //echo '</tr><tr>';
+
                 foreach ($forecastTableDataTemp as $tabledata) {
                     //echo '<td>' . $tabledata . '</td>';
                     $tempTab [] = intval($tabledata, 10);
                 }
+
                 //echo '</tr><tr>';
+
                 foreach ($forecastTableDataHumidity as $tabledata) {
                     //echo '<td>' . $tabledata . '</td>';
                     $humidityTab [] = $tabledata;
                 }
+
                 //echo '</tr><tr>';
+
                 foreach ($forecastTableDataWind as $tabledata) {
                     //echo '<td>' . $tabledata . '</td>';
                     $windTab [] = $tabledata;
@@ -180,7 +200,7 @@ require_once 'forecast.php';
             </div>
         </div>
 
-        <div class="carousel-item">
+        <div id="slideCams" class="carousel-item">
             <?php
             if (!empty($_POST['searchCity']) && isset($_POST['searchCity']) && $_POST['searchCity'] != 'NULL') {
                 $resultSearchCity = searchByLatLon($lat, $lon);
@@ -191,15 +211,15 @@ require_once 'forecast.php';
                 }
             }
 
-            if (!empty($_POST['region']) && isset($_POST['region']) && $_POST['region'] != 'NULL'){
+            if (!empty($_POST['region']) && isset($_POST['region']) && $_POST['region'] != 'NULL') {
                 $region = $_POST['region'];
                 $resultRegion = searchByRegion($region);
-                if (isset($resultRegion)){
+                if (isset($resultRegion)) {
                     echo $resultRegion;
 
                 }
 
-            }?>
+            } ?>
         </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -211,7 +231,6 @@ require_once 'forecast.php';
         <span class="sr-only">Next</span>
     </a>
 </div>
-
 
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
