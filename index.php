@@ -18,41 +18,19 @@ require_once 'forecast.php';
           integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/weather-icons.css" rel="stylesheet">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-transparent">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">On part ou en télé-travail ?</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-        </ul>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+
         <form class="form-inline my-2 my-lg-0" action="index.php" method="post" name="searchCity">
             <input class="form-control mr-sm-2" type="search" placeholder="City..." aria-label="Search"
                    name="searchCity">
@@ -63,7 +41,7 @@ require_once 'forecast.php';
 
 
 
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval=false>
     <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -89,7 +67,7 @@ require_once 'forecast.php';
                 </div>
                 <div class="row">
                     <div id="weather" class="offset-sm-2 col-sm-4">
-                        <p class="text-center" id="weatherIcon"><i class="wi wi-night-sleet"></i></p>
+                        <p class="text-center" id="weatherIcon"></p>
                     </div>
                     <div id="temperature" class="offset-sm-1 col-sm-4">
                         <p class="text-right"><?= $tempMax ?>°</p>
@@ -109,31 +87,90 @@ require_once 'forecast.php';
 
 
             }
+            $headTab = [];
+            $tempTab = [];
+            $humidityTab = [];
+            $windTab = [];
             if (isset($forecastTableHead)) {
-                echo '<table><tr>';
+                //echo '<table><tr>';
                 foreach ($forecastTableHead as $tableHead) {
-                    echo '<th>' . $tableHead . '</th>';
+                    //echo '<th>' . $tableHead . '</th>';
+                    $headTab [] = $tableHead;
                 }
-                echo '</tr><tr>';
+                //echo '</tr><tr>';
                 foreach ($forecastTableDataWeather as $tabledata) {
-                    echo '<td>' . $tabledata . '</td>';
+                    //echo '<td>' . $tabledata . '</td>';
                 }
-                echo '</tr><tr>';
+                //echo '</tr><tr>';
                 foreach ($forecastTableDataTemp as $tabledata) {
-                    echo '<td>' . $tabledata . '</td>';
+                    //echo '<td>' . $tabledata . '</td>';
+                    $tempTab [] = intval($tabledata, 10);
                 }
-                echo '</tr><tr>';
+                //echo '</tr><tr>';
                 foreach ($forecastTableDataHumidity as $tabledata) {
-                    echo '<td>' . $tabledata . '</td>';
+                    //echo '<td>' . $tabledata . '</td>';
+                    $humidityTab [] = $tabledata;
                 }
-                echo '</tr><tr>';
+                //echo '</tr><tr>';
                 foreach ($forecastTableDataWind as $tabledata) {
-                    echo '<td>' . $tabledata . '</td>';
+                    //echo '<td>' . $tabledata . '</td>';
+                    $windTab [] = $tabledata;
                 }
-                echo '</tr></table>';
+                //echo '</tr></table>';
             }
-
+            $tempGraph = json_encode($tempTab);
+            $headGraph = json_encode($headTab);
+            $humidityGraph = json_encode($humidityTab);
+            $windGraph = json_encode($windTab);
             ?>
+            <div id="graph" style="width: 600px; height: 200px;">
+            <canvas id="line-chart" style="width: 400px; height: 200px"></canvas>
+            </div>
+            <script>
+                new Chart(document.getElementById("line-chart"), {
+                    type: 'line',
+                    data: {
+                        labels: <?= $headGraph; ?>,
+                        datasets: [{
+                            data: <?= $tempGraph; ?>,
+                            label: "Températures",
+                            borderColor: "#3e95cd",
+                            fill: false,
+                            yAxisID: "y-axis-1"
+                        }, {
+                            data: <?= $humidityGraph; ?>,
+                            label: "Humidité",
+                            borderColor: "#8e5ea2",
+                            fill: false,
+                            yAxisID: "y-axis-2"
+                        }, {
+                            data: <?= $windGraph; ?>,
+                            label: "Force des vents",
+                            borderColor: "#3cba9f",
+                            fill: false
+                        }
+                        ]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Prévisions météo sur 5 jours'
+                        },scales: {
+                            yAxes: [{
+                                type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                                display: true,
+                                position: "left",
+                                id: "y-axis-1"
+                            },{
+                                type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                                display: true,
+                                position: "right",
+                                id: "y-axis-2"
+                            }]
+                        }
+                    }
+                });
+            </script>
         </div>
         <div class="carousel-item">
             <?php
@@ -181,6 +218,8 @@ require_once 'forecast.php';
 
 <script async type="text/javascript" src="https://api.lookr.com/embed/script/player.js"></script>
 <script src="script.js" type="text/javascript"></script>
+
+
 
 </body>
 </html>

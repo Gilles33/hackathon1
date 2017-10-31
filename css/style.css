@@ -57,14 +57,30 @@ h1 {
     text-align: center;
 }
 #carouselExampleIndicators{
-    height: 100%;
+    height: 95%;
     width: 100%;
 }
 
 .carousel-inner{
-    height: 100%;
+    height: 95%;
     width:100%;
 }
-html,body{height:100%;}
-.carousel,.carousel-item,.active{height:100%;}
-.carousel-inner{height:100%;}
+html,body{
+    height:100%;
+    overflow-y: hidden;
+}
+.carousel,.carousel-item,.active{
+    height:95%;
+}
+.carousel-inner{
+    height:95%;
+}
+
+.carousel-control-prev-icon{
+    width: 50px;
+    height: 50px;
+}
+.carousel-control-next-icon{
+    width: 50px;
+    height: 50px;
+}

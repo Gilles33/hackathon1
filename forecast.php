@@ -16,9 +16,9 @@ if (!empty($_POST['searchCity'])) {
         $date = strtotime($climateForecast->list[$i]->dt_txt);
         $newFormat = date('d-m-Y', $date);
         $forecastTableHead[] =  $newFormat;
-        $forecastTableDataWeather[] = $climateForecast->list[$i]->weather[0]->main . ' : ' . $climateForecast->list[$i]->weather[0]->description;
-        $forecastTableDataTemp[] = $climateForecast->list[0]->main->temp;
-        $forecastTableDataHumidity[] = $climateForecast->list[0]->main->humidity;
-        $forecastTableDataWind[] = $climateForecast->list[0]->wind->speed;
+        $forecastTableDataWeather[] = $climateForecast->list[$i]->weather[0]->main;
+        $forecastTableDataTemp[] = $climateForecast->list[$i]->main->temp;
+        $forecastTableDataHumidity[] = $climateForecast->list[$i]->main->humidity;
+        $forecastTableDataWind[] = $climateForecast->list[$i]->wind->speed;
     }
 }
