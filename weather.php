@@ -8,6 +8,7 @@ if (!empty($_POST['searchCity'])) {
 
     $contents = file_get_contents($url);
     $climate = json_decode($contents);
+    //var_dump($climate);
 
         $tempMax = $climate->main->temp_max;
         $tempMin = $climate->main->temp_min;
@@ -15,8 +16,9 @@ if (!empty($_POST['searchCity'])) {
         $icon = $climate->weather[0]->icon . ".png";
         $weather = $climate->weather[0]->main;
         $weatherDescription = $climate->weather[0]->description;
+        $weatherId = $climate->weather[0]->id;
 
-//variable lon and lat for cams
+        //variable lon and lat for cams
         $lon = $climate->coord->lon;
         $lat = $climate->coord->lat;
 

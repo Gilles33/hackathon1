@@ -25,6 +25,7 @@ function searchByLatLon($lat, $lon){
     foreach ($webcamsSearchCity as $webcam){
         $contentWebcamSearchCity.= '<div class="card" style="width: 20rem;">
             <iframe width="100%" name="lkr-timelapse-player-iframe" frameborder="0" allowfullscreen="true"
+
            src="https://api.lookr.com/embed/player/' . $webcam->id . '/day?autoresize=0&amp;referrer=http%3A%2F%2Flocalhost%2Fhackathon%2Fbordeaux-0917-hackathon1%2Findex.php"
            style="border: none;"></iframe>
             <div class="card-body">
@@ -34,6 +35,7 @@ function searchByLatLon($lat, $lon){
                     <button class="btn btn-primary" type="submit" name="region" value="' . $webcam->location->region_code . '">Voir la Région</button></form>
                 </div>
             </div>';
+
     }
     $contentWebcamSearchCity.= '</div>';
     return $contentWebcamSearchCity;
