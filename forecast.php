@@ -8,12 +8,17 @@ if (!empty($_POST['searchCity'])) {
     $contentsForecast = file_get_contents($urlForecast);
     $climateForecast = json_decode($contentsForecast);
     $forecastTableHead = [];
-    $forecastTableData = [];
+    $forecastTableDataWeather = [];
+    $forecastTableDataTemp =[];
+    $forecastTableDataHumidity =[];
 
     for($i=4; $i <=36 ; $i += 8) {
         $date = strtotime($climateForecast->list[$i]->dt_txt);
         $newFormat = date('d-m-Y', $date);
         $forecastTableHead[] =  $newFormat;
-        $forecastTableData[] = $climateForecast->list[$i]->weather[0]->main . ' : ' . $climateForecast->list[$i]->weather[0]->description;
+        $forecastTableDataWeather[] = $climateForecast->list[$i]->weather[0]->main . ' : ' . $climateForecast->list[$i]->weather[0]->description;
+        $forecastTableDataTemp[] = $climateForecast->list[0]->main->temp;
+        $forecastTableDataHumidity[] = $climateForecast->list[0]->main->humidity;
+        $forecastTableDataWind[] = $climateForecast->list[0]->wind->speed;
     }
 }
