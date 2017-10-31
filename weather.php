@@ -9,8 +9,8 @@ if (!empty($_POST['searchCity'])) {
     $contents = file_get_contents($url);
     $climate = json_decode($contents);
 
-        $tempMax = $climate->main->temp_max;
-        $tempMin = $climate->main->temp_min;
+        $tempMax = intval($climate->main->temp_max);
+        $humidity = $climate->main->humidity;
         $wind = $climate->wind->speed;
         $icon = $climate->weather[0]->icon . ".png";
         $weather = $climate->weather[0]->main;
@@ -21,7 +21,7 @@ if (!empty($_POST['searchCity'])) {
         $lon = $climate->coord->lon;
         $lat = $climate->coord->lat;
 
-        $today = date("l jS \of F Y h:i:s A");
+        $today = date("l-F-d");
         $cityName = $climate->name;
 
     }

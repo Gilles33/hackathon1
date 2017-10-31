@@ -62,6 +62,7 @@ function searchByRegion($region){
 
     foreach ($webcamsRegion as $webcam){
         if ($webcam->status == 'active'){
+
             $contentWebcamRegion .= '<div class="card" style="width: 20rem;">
             <iframe width="100%" name="lkr-timelapse-player-iframe" frameborder="0" allowfullscreen="true"
            src="https://api.lookr.com/embed/player/' . $webcam->id . '/day?autoresize=0&amp;referrer=http%3A%2F%2Flocalhost%2Fhackathon%2Fbordeaux-0917-hackathon1%2Findex.php"
