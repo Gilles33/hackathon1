@@ -20,7 +20,7 @@ function searchByLatLon($lat, $lon){
     $contentSearchCity = json_decode($jsonSearchCity);
     $webcamsSearchCity = $contentSearchCity->result->webcams;
 
-    $contentWebcamSearchCity ='<div class="row">';
+    $contentWebcamSearchCity ='<div class="row content-webcams">';
 
     foreach ($webcamsSearchCity as $webcam){
         if (preg_match("/:/i", $webcam->title)){
@@ -58,7 +58,7 @@ function searchByRegion($region){
     $contentRegion = json_decode($jsonRegion);
     $webcamsRegion = $contentRegion->result->webcams;
 
-    $contentWebcamRegion ='<div class="row">';
+    $contentWebcamRegion ='<div class="row content-webcams">';
 
     foreach ($webcamsRegion as $webcam){
         if ($webcam->status == 'active'){

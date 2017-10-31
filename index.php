@@ -23,7 +23,7 @@ require_once 'forecast.php';
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-transparent">
-    <a class="navbar-brand" href="#">On part ou en télé-travail ?</a>
+    <a class="navbar-brand" href="#"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -58,10 +58,10 @@ require_once 'forecast.php';
                 ?>
                 <section id="currentWeather">
                 <div class="row">
-                    <div class="col-sm-6">
-                        <h1><?= $cityName ?><span id="weatherId"><?= $weatherId ?></span></h1>
+                    <div class="offset-sm-2 col-sm-4">
+                        <h1 class="text-center"><?= $cityName ?><span id="weatherId"><?= $weatherId ?></span></h1>
                     </div>
-                    <div class="col-sm-6 text-right">
+                    <div class="offset-sm-1 col-sm-4 text-left">
                         <p id="currentDate"><?= $today ?></p>
                     </div>
                 </div>
@@ -70,7 +70,7 @@ require_once 'forecast.php';
                         <p class="text-center" id="weatherIcon"></p>
                     </div>
                     <div id="temperature" class="offset-sm-1 col-sm-4">
-                        <p class="text-right"><?= $tempMax ?>°</p>
+                        <p class="text-left"><?= $tempMax ?>°</p>
                     </div>
                 </div>
                 <div class="row">
@@ -123,61 +123,70 @@ require_once 'forecast.php';
             $humidityGraph = json_encode($humidityTab);
             $windGraph = json_encode($windTab);
             ?>
-            <div id="graph" style="width: 600px; height: 200px;">
-            <canvas id="line-chart" style="width: 400px; height: 200px"></canvas>
+            <div class="row">
+                <div class="offset-sm-1 col-sm-4">
+                    <div id="graph" style="width: 600px; height: 200px;">
+                        <canvas id="line-chart" style="width: 400px; height: 200px"></canvas>
+                    </div>
+                    <script>
+                        new Chart(document.getElementById("line-chart"), {
+                            type: 'line',
+                            data: {
+                                labels: <?= $headGraph; ?>,
+                                datasets: [{
+                                    data: <?= $tempGraph; ?>,
+                                    label: "Températures",
+                                    borderColor: "#3e95cd",
+                                    fill: false,
+                                    yAxisID: "y-axis-1"
+                                }, {
+                                    data: <?= $humidityGraph; ?>,
+                                    label: "Humidité",
+                                    borderColor: "#8e5ea2",
+                                    fill: false,
+                                    yAxisID: "y-axis-2"
+                                }, {
+                                    data: <?= $windGraph; ?>,
+                                    label: "Force des vents",
+                                    borderColor: "#3cba9f",
+                                    fill: false
+                                }
+                                ]
+                            },
+                            options: {
+                                title: {
+                                    display: true,
+                                    text: 'Prévisions météo sur 5 jours'
+                                },scales: {
+                                    yAxes: [{
+                                        type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                                        display: true,
+                                        position: "left",
+                                        id: "y-axis-1"
+                                    },{
+                                        type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                                        display: true,
+                                        position: "right",
+                                        id: "y-axis-2"
+                                    }]
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+                <div class="offset-sm-1 col-sm-4">
+
+                </div>
             </div>
-            <script>
-                new Chart(document.getElementById("line-chart"), {
-                    type: 'line',
-                    data: {
-                        labels: <?= $headGraph; ?>,
-                        datasets: [{
-                            data: <?= $tempGraph; ?>,
-                            label: "Températures",
-                            borderColor: "#3e95cd",
-                            fill: false,
-                            yAxisID: "y-axis-1"
-                        }, {
-                            data: <?= $humidityGraph; ?>,
-                            label: "Humidité",
-                            borderColor: "#8e5ea2",
-                            fill: false,
-                            yAxisID: "y-axis-2"
-                        }, {
-                            data: <?= $windGraph; ?>,
-                            label: "Force des vents",
-                            borderColor: "#3cba9f",
-                            fill: false
-                        }
-                        ]
-                    },
-                    options: {
-                        title: {
-                            display: true,
-                            text: 'Prévisions météo sur 5 jours'
-                        },scales: {
-                            yAxes: [{
-                                type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-                                display: true,
-                                position: "left",
-                                id: "y-axis-1"
-                            },{
-                                type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-                                display: true,
-                                position: "right",
-                                id: "y-axis-2"
-                            }]
-                        }
-                    }
-                });
-            </script>
         </div>
+
         <div class="carousel-item">
             <?php
             if (!empty($_POST['searchCity']) && isset($_POST['searchCity']) && $_POST['searchCity'] != 'NULL') {
                 $resultSearchCity = searchByLatLon($lat, $lon);
-
+                $titreVille = strtoupper($_POST['searchCity']);
                 if (isset($resultSearchCity)) {
+                    echo '<h1 id="titreVille">' . $titreVille . '</h1>';
                     echo $resultSearchCity;
                 }
             }
