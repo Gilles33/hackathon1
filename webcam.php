@@ -27,8 +27,7 @@ foreach ($webcams as $webcam){
             <h1>' . $webcam->title.'</h1>
             <iframe width="100%" name="lkr-timelapse-player-iframe" frameborder="0" allowfullscreen="true"
            src="https://api.lookr.com/embed/player/' . $webcam->id . '/day?autoresize=1&amp;referrer=http%3A%2F%2Flocalhost%2Fhackathon%2Fbordeaux-0917-hackathon1%2Findex.php"
-           style="border: none;" height="514.6875"></iframe>
-           
+           style="border: none;" height="514.6875"></iframe>    
         </div>';
     }
 }

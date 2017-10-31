@@ -1,6 +1,6 @@
 <?php
 require_once 'weather.php';
-require 'webcam.php';
+require_once 'forecast.php';
 ?>
 
 <!DOCTYPE html>
@@ -33,13 +33,24 @@ require 'webcam.php';
         </ul>
     </section>
     <?php
+
+    require 'webcam.php';
+    if (isset($contentWebcam)) {
+        echo $contentWebcam;
+    }
+
+    if (isset($forecastTableHead)) {
+        echo '<table><tr>';
+        foreach ($forecastTableHead as $tableHead) {
+            echo '<th>' . $tableHead . '</th>';
+        }
+        echo '</tr><tr>';
+        foreach ($forecastTableData as $tabledata) {
+            echo '<td>' . $tabledata . '</td>';
+        }
+        echo '</tr></table>';
+    }
 }
-
-if(isset($contentWebcam)) {
-    echo $contentWebcam;
-}
-
-
 ?>
 
 <script async type="text/javascript" src="https://api.lookr.com/embed/script/player.js"></script>

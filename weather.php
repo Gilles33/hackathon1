@@ -16,7 +16,7 @@ if (!empty($_POST)) {
         $weather = $climate->weather[0]->main;
         $weatherDescription = $climate->weather[0]->description;
 
-//variable lon and lat for cams
+        //variable lon and lat for cams
         $lon = $climate->coord->lon;
         $lat = $climate->coord->lat;
 
