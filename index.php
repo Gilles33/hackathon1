@@ -39,7 +39,9 @@ require_once 'forecast.php';
         echo $contentWebcam;
     }
 
+
     if (isset($forecastTableHead)) {
+
         echo '<table><tr>';
         foreach ($forecastTableHead as $tableHead) {
             echo '<th>' . $tableHead . '</th>';
