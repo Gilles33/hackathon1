@@ -8,7 +8,6 @@ if (!empty($_POST['searchCity'])) {
 
     $contents = file_get_contents($url);
     $climate = json_decode($contents);
-    //var_dump($climate);
 
         $tempMax = intval($climate->main->temp_max);
         $humidity = $climate->main->humidity;

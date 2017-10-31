@@ -62,87 +62,111 @@ require_once 'forecast.php';
 </nav>
 
 
-<?php
 
-
-if (!empty($_POST['searchCity']) && isset($_POST['searchCity']) && $_POST['searchCity'] != 'NULL') {
-
-    ?>
-
-    <section id="currentWeather" class="container">
-        <div class="row">
-            <div class="col-sm-6">
-                <h1><?= $cityName ?><span id="weatherId"><?= $weatherId ?></span></h1>
-            </div>
-            <div class="col-sm-6 text-right">
-                <p id="currentDate"><?= $today ?></p>
-            </div>
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img class="d-block w-100" src="..." alt="First slide">
         </div>
-        <div class="row">
-            <div id="weather" class="offset-sm-2 col-sm-4">
-                <p class="text-center" id="weatherIcon"><i class="wi wi-night-sleet"></i></p>
-            </div>
-            <!--  $weather ?>
-            : $weatherDescription ?><img src='http://openweathermap.org/img/w/<?= $icon ?>'/> -->
-            <div id="temperature" class="offset-sm-1 col-sm-4">
-                <p class="text-right"><?= $tempMax ?>°</p>
-            </div>
+        <div class="carousel-item">
+            <?php
+            if (!empty($_POST['searchCity']) && isset($_POST['searchCity']) && $_POST['searchCity'] != 'NULL') {
+
+                ?>
+                <section id="currentWeather">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h1><?= $cityName ?><span id="weatherId"><?= $weatherId ?></span></h1>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <p id="currentDate"><?= $today ?></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="weather" class="offset-sm-2 col-sm-4">
+                        <p class="text-center" id="weatherIcon"><i class="wi wi-night-sleet"></i></p>
+                    </div>
+                    <div id="temperature" class="offset-sm-1 col-sm-4">
+                        <p class="text-right"><?= $tempMax ?>°</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="humidity" class="offset-sm-3 col-sm-3">
+                        <p class="text-center"><i class="wi wi-raindrop"></i> <?= $humidity ?></p>
+                    </div>
+                    <div id="wind" class="col-sm-3">
+                        <p class="text-center"><i class="wi wi-strong-wind"></i><?= $wind ?> meter/sec</p>
+                    </div>
+                </div>
+                </section>
+                <?php
+
+
+
+            }
+            if (isset($forecastTableHead)) {
+                echo '<table><tr>';
+                foreach ($forecastTableHead as $tableHead) {
+                    echo '<th>' . $tableHead . '</th>';
+                }
+                echo '</tr><tr>';
+                foreach ($forecastTableDataWeather as $tabledata) {
+                    echo '<td>' . $tabledata . '</td>';
+                }
+                echo '</tr><tr>';
+                foreach ($forecastTableDataTemp as $tabledata) {
+                    echo '<td>' . $tabledata . '</td>';
+                }
+                echo '</tr><tr>';
+                foreach ($forecastTableDataHumidity as $tabledata) {
+                    echo '<td>' . $tabledata . '</td>';
+                }
+                echo '</tr><tr>';
+                foreach ($forecastTableDataWind as $tabledata) {
+                    echo '<td>' . $tabledata . '</td>';
+                }
+                echo '</tr></table>';
+            }
+
+            ?>
         </div>
-        <div class="row">
-            <div id="humidity" class="offset-sm-3 col-sm-3">
-                <p class="text-center"><i class="wi wi-raindrop"></i> <?= $humidity ?></p>
-            </div>
-            <div id="wind" class="col-sm-3">
-                <p class="text-center"><i class="wi wi-strong-wind"></i><?= $wind ?> meter/sec</p>
-            </div>
+        <div class="carousel-item">
+            <?php
+            if (!empty($_POST['searchCity']) && isset($_POST['searchCity']) && $_POST['searchCity'] != 'NULL') {
+                $resultSearchCity = searchByLatLon($lat, $lon);
+
+                if (isset($resultSearchCity)) {
+                    echo $resultSearchCity;
+                }
+            }
+
+            if (!empty($_POST['region']) && isset($_POST['region']) && $_POST['region'] != 'NULL'){
+                $region = $_POST['region'];
+                $resultRegion = searchByRegion($region);
+                if (isset($resultRegion)){
+                    echo $resultRegion;
+
+                }
+
+            }?>
         </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
 
-    </section>
-    <?php
 
-
-    $resultSearchCity = searchByLatLon($lat, $lon);
-
-    if (isset($resultSearchCity)) {
-        echo $resultSearchCity;
-    }
-
-}
-if (!empty($_POST['region']) && isset($_POST['region']) && $_POST['region'] != 'NULL') {
-    $region = $_POST['region'];
-    $resultRegion = searchByRegion($region);
-    if (isset($resultRegion)) {
-        echo $resultRegion;
-
-    }
-
-}
-
-if (isset($forecastTableHead)) {
-    echo '<table><tr>';
-    foreach ($forecastTableHead as $tableHead) {
-        echo '<th>' . $tableHead . '</th>';
-    }
-    echo '</tr><tr>';
-    foreach ($forecastTableDataWeather as $tabledata) {
-        echo '<td>' . $tabledata . '</td>';
-    }
-    echo '</tr><tr>';
-    foreach ($forecastTableDataTemp as $tabledata) {
-        echo '<td>' . $tabledata . '</td>';
-    }
-    echo '</tr><tr>';
-    foreach ($forecastTableDataHumidity as $tabledata) {
-        echo '<td>' . $tabledata . '</td>';
-    }
-    echo '</tr><tr>';
-    foreach ($forecastTableDataWind as $tabledata) {
-        echo '<td>' . $tabledata . '</td>';
-    }
-    echo '</tr></table>';
-}
-
-?>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -154,7 +178,9 @@ if (isset($forecastTableHead)) {
         integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
         crossorigin="anonymous"></script>
 
+
 <script async type="text/javascript" src="https://api.lookr.com/embed/script/player.js"></script>
 <script src="script.js" type="text/javascript"></script>
+
 </body>
 </html>
