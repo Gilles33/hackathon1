@@ -10,6 +10,7 @@ require_once 'forecast.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oui Project</title>
+    <link href="style.css" rel="stylesheet">
 </head>
 <body>
 <form action="index.php" method="post">
@@ -19,8 +20,9 @@ require_once 'forecast.php';
 </form>
 
 <?php if (!empty($_POST)) { ?>
+
     <section id="currentWeather">
-        <h1><?= $cityName ?></h1>
+        <h1><?= $cityName ?><span id="weatherId"><?= $weatherId ?></span></h1>
         <p><?= $today ?></p>
         <p><img src='http://openweathermap.org/img/w/<?= $icon ?>'/> <?= $weather ?> : <?= $weatherDescription ?></p>
         <ul>
@@ -41,7 +43,6 @@ require_once 'forecast.php';
 
 
     if (isset($forecastTableHead)) {
-
         echo '<table><tr>';
         foreach ($forecastTableHead as $tableHead) {
             echo '<th>' . $tableHead . '</th>';
@@ -55,6 +56,8 @@ require_once 'forecast.php';
 }
 ?>
 
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script async type="text/javascript" src="https://api.lookr.com/embed/script/player.js"></script>
+<script src="script.js" type="text/javascript"></script>
 </body>
 </html>
