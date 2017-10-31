@@ -21,7 +21,7 @@ if (!empty($_POST['searchCity'])) {
         $lon = $climate->coord->lon;
         $lat = $climate->coord->lat;
 
-        $today = date("l-F-d");
+        $today = date("d/m/Y");
         $cityName = $climate->name;
 
     }
