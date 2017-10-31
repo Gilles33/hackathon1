@@ -1,0 +1,12 @@
+{
+    "name": "root/hackathon1",
+    "require": {
+        "mashape/unirest-php": "^3.0"
+    },
+    "authors": [
+        {
+            "name": "Benjamin Jaeger",
+            "email": "benjaminjaeger31@gmail.com"
+        }
+    ]
+}
