@@ -2,9 +2,9 @@
 //units=For temperature in Celsius use units=metric
 //5128638 is new york ID
 //$url = "http://api.openweathermap.org/data/2.5/weather?id=   {IDCITY}  8&lang=en&units=metric&APPID=  {APIKEY}";
-if (!empty($_POST)) {
+if (!empty($_POST['searchCity'])) {
 
-    $url = "http://api.openweathermap.org/data/2.5/weather?q=" . $_POST['city'] . "&lang=en&units=metric&APPID=c37c40b50020a0babaa686080330ef22";
+    $url = "http://api.openweathermap.org/data/2.5/weather?q=" . $_POST['searchCity'] . "&lang=en&units=metric&APPID=c37c40b50020a0babaa686080330ef22";
 
     $contents = file_get_contents($url);
     $climate = json_decode($contents);
