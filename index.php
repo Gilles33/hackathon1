@@ -14,7 +14,7 @@ require_once 'forecast.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Météo</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
@@ -54,66 +54,96 @@ require_once 'forecast.php';
     </div>
 </nav>
 
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img class="d-block w-100" src="..." alt="First slide">
+        </div>
+        <div class="carousel-item">
+            <?php
+            if (!empty($_POST['searchCity']) && isset($_POST['searchCity']) && $_POST['searchCity'] != 'NULL') {
 
-<?php
+                ?>
+                <h1><?= $cityName ?><span id="weatherId"><?= $weatherId ?></span></h1>
+                <p><?= $today ?></p>
+                <p><img src='http://openweathermap.org/img/w/<?= $icon ?>'/> <?= $weather ?> : <?= $weatherDescription ?></p>
+                <ul>
+                    <li>Temperature</li>
+                    <ul>
+                        <li>Max : <?= $tempMax ?></li>
+                        <li>Max : <?= $tempMin ?></li>
+                    </ul>
+                    <li>Wind : <?= $wind ?> meter/sec</li>
+                </ul>
+
+                <?php
 
 
-if (!empty($_POST['searchCity']) && isset($_POST['searchCity']) && $_POST['searchCity'] != 'NULL') {
 
-    ?>
+            }
+            if (isset($forecastTableHead)) {
+                echo '<table><tr>';
+                foreach ($forecastTableHead as $tableHead) {
+                    echo '<th>' . $tableHead . '</th>';
+                }
+                echo '</tr><tr>';
+                foreach ($forecastTableData as $tabledata) {
+                    echo '<td>' . $tabledata . '</td>';
+                }
+                echo '</tr></table>';
+            }
 
+            ?>
+        </div>
+        <div class="carousel-item">
+            <?php
+            if (!empty($_POST['searchCity']) && isset($_POST['searchCity']) && $_POST['searchCity'] != 'NULL') {
+                $resultSearchCity = searchByLatLon($lat, $lon);
+
+                if (isset($resultSearchCity)) {
+                    echo $resultSearchCity;
+                }
+            }
+
+            if (!empty($_POST['region']) && isset($_POST['region']) && $_POST['region'] != 'NULL'){
+                $region = $_POST['region'];
+                $resultRegion = searchByRegion($region);
+                if (isset($resultRegion)){
+                    echo $resultRegion;
+
+                }
+
+            }?>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+<div class="container-fluid">
     <section id="currentWeather">
-        <h1><?= $cityName ?><span id="weatherId"><?= $weatherId ?></span></h1>
-        <p><?= $today ?></p>
-        <p><img src='http://openweathermap.org/img/w/<?= $icon ?>'/> <?= $weather ?> : <?= $weatherDescription ?></p>
-        <ul>
-            <li>Temperature</li>
-            <ul>
-                <li>Max : <?= $tempMax ?></li>
-                <li>Max : <?= $tempMin ?></li>
-            </ul>
-            <li>Wind : <?= $wind ?> meter/sec</li>
-        </ul>
-    </section>
-    <?php
 
 
-    $resultSearchCity = searchByLatLon($lat, $lon);
 
-    if (isset($resultSearchCity)) {
-        echo $resultSearchCity;
-    }
 
-}
-if (!empty($_POST['region']) && isset($_POST['region']) && $_POST['region'] != 'NULL'){
-    $region = $_POST['region'];
-    $resultRegion = searchByRegion($region);
-    if (isset($resultRegion)){
-        echo $resultRegion;
-
-    }
-
-}
-
-    if (isset($forecastTableHead)) {
-        echo '<table><tr>';
-        foreach ($forecastTableHead as $tableHead) {
-            echo '<th>' . $tableHead . '</th>';
-        }
-        echo '</tr><tr>';
-        foreach ($forecastTableData as $tabledata) {
-            echo '<td>' . $tabledata . '</td>';
-        }
-        echo '</tr></table>';
-    }
-
-?>
-
+</div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
 <script async type="text/javascript" src="https://api.lookr.com/embed/script/player.js"></script>
 <script src="script.js" type="text/javascript"></script>
+
 </body>
 </html>
